@@ -1,0 +1,15 @@
+"""To split file using UNIX command split."""
+import os, subprocess
+
+def split_file (filename, split_num=5):
+    size = os.stat(filename).st_size
+    prefix = os.path.join(os.path.dirname(filename),
+                          "S3PART")
+    #split_size = int(min(size / (split_num * 2.0), 250))
+    split_size = 3
+    if not os.path.exists("%saa" % prefix):
+        cl = ["split", "-b%sm" % split_size, filename, prefix]
+        subprocess.check_call(cl)
+    #return sorted(glob.glob("%s*" % prefix))
+    
+split_file('Documents.zip')
